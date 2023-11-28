@@ -1,16 +1,17 @@
 /**
- * @file    COMPNAME_TestDriver.cpp
+ * @file    GPIO_TestDriver.cpp
  *
- * @brief   Código de ensayos para el componente COMPNAME.
+ * @brief   Código de ensayos para el componente GPIO.
  *
  * @note
- *        ______________      ______________      ______________
- *        TBD_E               TBD_V               TBD_P
- *        Encargado de        Verificador         PM
+ *        ______________
+ *        Eduardo
+ *        Heredia Gonzalez
+ *        Encargado de
  *	      ensayos
  *
  * @version
- * - TBD_E -- DD/MM/YYYY -- Actual
+ * - Eduardo Heredia Gonzalez -- 28/11/2023 -- Actual
  * 	- Versión inicial.
  *
  *
@@ -29,12 +30,13 @@ extern "C"
 extern "C"
 {
 /* Used headers written in C */
+#include "VMEMORY.c"
 }
 
 /******************** Start of Code Under Test ********************/
 extern "C"
 {
-
+#include "GPIO.c"
 }
 /******************** End of Code Under Test ********************/
 
