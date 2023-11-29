@@ -22,6 +22,8 @@
 #define STD_VALUES_ONE	(1U)
 #define STD_VALUES_OFF	(0U)
 #define STD_VALUES_ON	(1U)
+#define STD_VALUES_LOW	(0U)
+#define STD_VALUES_HIGH	(1U)
 
 /* exported types */
 
