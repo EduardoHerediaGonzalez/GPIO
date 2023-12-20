@@ -17,9 +17,9 @@
 #define VMEMORY_def_H_
 
 /* system headers */
-#include "PLATFORM_TYPES_def.h"
 
 /* exported macros */
+#define VMEMORY_nTOTAL_OF_PORTS	(8)
 
 /* exported types */
 typedef struct

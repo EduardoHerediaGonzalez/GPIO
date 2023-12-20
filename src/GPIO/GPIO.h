@@ -26,5 +26,6 @@
 /* exported variables */
 
 /* exported functions */
+extern void GPIO_vInit(void);
 
 #endif /* GPIO_H_ */

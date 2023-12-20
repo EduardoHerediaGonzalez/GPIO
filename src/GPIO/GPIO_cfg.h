@@ -21,29 +21,41 @@
 
 /*****************************************************************************/
 /* exported configuration macros */
+#if defined(_SWDEVELOPMENT_) || defined(_UNITTESTS_)
+#define GPIO_nBASE_ADDRESS_cfg			(&VMEMORY_stControlStatus)
+#define GPIO_nBASE_ADDRESS_PORTA_cfg	(&VMEMORY_astPort[0])
+#define GPIO_nBASE_ADDRESS_PORTB_cfg	(&VMEMORY_astPort[1])
+#define GPIO_nBASE_ADDRESS_PORTC_cfg	(&VMEMORY_astPort[2])
+#define GPIO_nBASE_ADDRESS_PORTD_cfg	(&VMEMORY_astPort[3])
+#define GPIO_nBASE_ADDRESS_PORTE_cfg	(&VMEMORY_astPort[4])
+#define GPIO_nBASE_ADDRESS_PORTF_cfg	(&VMEMORY_astPort[5])
+#define GPIO_nBASE_ADDRESS_PORTG_cfg	(&VMEMORY_astPort[6])
+#define GPIO_nBASE_ADDRESS_PORTH_cfg	(&VMEMORY_astPort[7])
+#else
 #define GPIO_nBASE_ADDRESS_cfg			(0xFFF7BC00)
 #define GPIO_nBASE_ADDRESS_PORTA_cfg	(0xFFF7BC34)
 #define GPIO_nBASE_ADDRESS_PORTB_cfg	(0xFFF7BC54)
-#define GPIO_nBASE_ADDRESS_PORTC_cfg	(0xFFF7BC74)
-#define GPIO_nBASE_ADDRESS_PORTD_cfg	(0xFFF7BC94)
-#define GPIO_nBASE_ADDRESS_PORTE_cfg	(0xFFF7BCB4)
-#define GPIO_nBASE_ADDRESS_PORTF_cfg	(0xFFF7BCD4)
-#define GPIO_nBASE_ADDRESS_PORTG_cfg	(0xFFF7BCF4)
-#define GPIO_nBASE_ADDRESS_PORTH_cfg	(0xFFF7BD14)
+#define GPIO_nBASE_ADDRESS_PORTC_cfg	(0)
+#define GPIO_nBASE_ADDRESS_PORTD_cfg	(0)
+#define GPIO_nBASE_ADDRESS_PORTE_cfg	(0)
+#define GPIO_nBASE_ADDRESS_PORTF_cfg	(0)
+#define GPIO_nBASE_ADDRESS_PORTG_cfg	(0)
+#define GPIO_nBASE_ADDRESS_PORTH_cfg	(0)
+#endif
 
 /** @brief     Table that contain the base address where start the registers
  * 		       that configure each port of the microcontroller.
  */
 #define GPIO_PORTS_ADDRESSES_TABLE_cfg	\
 {	\
-	GPIO_nBASE_ADDRESS_PORTA_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTB_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTC_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTD_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTE_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTF_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTG_cfg,	\
-	GPIO_nBASE_ADDRESS_PORTH_cfg	\
+	(void*)GPIO_nBASE_ADDRESS_PORTA_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTB_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTC_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTD_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTE_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTF_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTG_cfg,	\
+	(void*)GPIO_nBASE_ADDRESS_PORTH_cfg	\
 }
 
 /** @brief     Table that contain the configuration of all the pins of the
@@ -57,7 +69,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTA_cfg != 0
 #define  GPIO_PORTA_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -70,7 +81,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTB.
@@ -83,7 +93,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTB_cfg != 0
 #define  GPIO_PORTB_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -96,7 +105,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTC.
@@ -109,7 +117,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTC_cfg != 0
 #define  GPIO_PORTC_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -122,7 +129,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTD.
@@ -135,7 +141,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTD_cfg != 0
 #define  GPIO_PORTD_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -148,7 +153,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTE.
@@ -161,7 +165,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTE_cfg != 0
 #define  GPIO_PORTE_CONFIG_TABLE_cfg \
 {	\
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -174,7 +177,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTF.
@@ -187,7 +189,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTF_cfg != 0
 #define  GPIO_PORTF_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -200,7 +201,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTG.
@@ -213,7 +213,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTG_cfg != 0
 #define  GPIO_PORTG_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -226,7 +225,6 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 /** @brief     Table that contain the configuration of all the pins of the
  * 			   PORTH.
@@ -239,7 +237,6 @@
  *  							  GPIO_enTotalOfPinModes)}
  *  @param[in] u8PinInitState:  {STD_VALUES_LOW, STD_VALUES_HIGH}
  */
-#if GPIO_nBASE_ADDRESS_PORTH_cfg != 0
 #define  GPIO_PORTH_CONFIG_TABLE_cfg \
 {   \
     /* u8PinNumber,         u8PinMode,                      u8PinInitState*/ \
@@ -252,6 +249,5 @@
     {(uint8)GPIO_enPin6,    (uint8)GPIO_enInputPullDown,    (uint8)0U}, \
     {(uint8)GPIO_enPin7,    (uint8)GPIO_enInputPullDown,    (uint8)0U}	\
 }
-#endif
 
 #endif /* GPIO_cfg_H_ */

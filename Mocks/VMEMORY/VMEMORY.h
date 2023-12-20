@@ -19,12 +19,14 @@
 /* system headers */
 
 /* own headers */
+#include "VMEMORY_def.h"
 
 /*****************************************************************************/
 /* helper macros */
-#define VMEMORY_nTOTAL_OF_PORTS	(8)
 
 /* exported variables */
+extern uint32 VMEMORY_u32ClkCntlReg;
+extern uint32 VMEMORY_u32PsPwrDwnClrReg;
 extern VMEMORY_tstControlStatusRegisters VMEMORY_stControlStatus;
 extern VMEMORY_tstPortRegisters VMEMORY_astPort[VMEMORY_nTOTAL_OF_PORTS];
 
