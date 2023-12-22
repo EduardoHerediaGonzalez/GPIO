@@ -49,7 +49,6 @@ extern "C"
 /*[INTERNAL]****************************************************************************/
 
 /* internal__pre-processor macros */
-#define GPIO_TEST_s_nFIRST_BIT_MASK	(0x00000001U)
 
 /* internal__types */
 
@@ -79,14 +78,14 @@ TEST_GROUP(GPIO_InitFunction)
  */
 TEST(GPIO_InitFunction, Test_1)
 {
-	uint32 u32ActualResult = (uint32)STD_nLOW;
-	uint32 u32ExpectedResult = (uint32)STD_nHIGH;
+	uint8 u8ActualResult = (uint8)STD_nLOW;
+	uint8 u8ExpectedResult = (uint8)STD_nHIGH;
 
 	GPIO_vInit();
 
-	u32ActualResult = (uint32)((*GPIO_s_pu32ClkCntlReg >> GPIO_s_nPENA_BIT) && GPIO_TEST_s_nFIRST_BIT_MASK);
+	u8ActualResult = (uint8)((*GPIO_s_pu32ClkCntlReg & (STD_nHIGH << GPIO_s_nPENA_BIT)) >> GPIO_s_nPENA_BIT);
 
-	UNSIGNED_LONGS_EQUAL(u32ExpectedResult, u32ActualResult);
+	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
 }
 
 /**
@@ -95,14 +94,14 @@ TEST(GPIO_InitFunction, Test_1)
  */
 TEST(GPIO_InitFunction, Test_2)
 {
-	uint32 u32ActualResult = (uint32)STD_nHIGH;
-	uint32 u32ExpectedResult = (uint32)STD_nLOW;
+	uint8 u8ActualResult = (uint8)STD_nHIGH;
+	uint8 u8ExpectedResult = (uint8)STD_nLOW;
 
 	GPIO_vInit();
 
-	u32ActualResult = (uint32)((*GPIO_s_pu32PwrDwnClr2Reg >> GPIO_s_nPS16_BIT) && GPIO_TEST_s_nFIRST_BIT_MASK);
+	u8ActualResult = (uint8)((*GPIO_s_pu32PwrDwnClr2Reg & (STD_nHIGH << GPIO_s_nPS16_BIT)) >> GPIO_s_nPS16_BIT);
 
-	UNSIGNED_LONGS_EQUAL(u32ExpectedResult, u32ActualResult);
+	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
 }
 
 /**
@@ -111,14 +110,14 @@ TEST(GPIO_InitFunction, Test_2)
  */
 TEST(GPIO_InitFunction, Test_3)
 {
-	uint32 u32ActualResult = (uint32)STD_nLOW;
-	uint32 u32ExpectedResult = (uint32)STD_nHIGH;
+	uint8 u8ActualResult = (uint8)STD_nLOW;
+	uint8 u8ExpectedResult = (uint8)STD_nHIGH;
 
 	GPIO_vInit();
 
-	u32ActualResult = (uint32)(GPIO_s_pstControlStatusBaseAddress->GIOGCR0);
+	u8ActualResult = (uint8)((GPIO_s_pstControlStatusBaseAddress->GIOGCR0 & (STD_nHIGH << GPIO_s_nRESET_BIT)) >> GPIO_s_nRESET_BIT);
 
-	UNSIGNED_LONGS_EQUAL(u32ExpectedResult, u32ActualResult);
+	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
 }
 
 /* EOF */
