@@ -37,7 +37,7 @@ extern "C"
 /******************** Start of Code Under Test ********************/
 extern "C"
 {
-#include "GPIO.c"
+#include "../../src/GPIO/GPIO.c"
 }
 /******************** End of Code Under Test ********************/
 
@@ -78,46 +78,7 @@ TEST_GROUP(GPIO_InitFunction)
  */
 TEST(GPIO_InitFunction, Test_1)
 {
-	uint8 u8ActualResult = (uint8)STD_nLOW;
-	uint8 u8ExpectedResult = (uint8)STD_nHIGH;
-
-	GPIO_vInit();
-
-	u8ActualResult = (uint8)((*GPIO_s_pu32ClkCntlReg & (STD_nHIGH << GPIO_s_nPENA_BIT)) >> GPIO_s_nPENA_BIT);
-
-	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
-}
-
-/**
- * Test to check that function clear the bit PS[16] of the peripheral power-down
- * clear register 2 (PSPWRDWNCLR2).
- */
-TEST(GPIO_InitFunction, Test_2)
-{
-	uint8 u8ActualResult = (uint8)STD_nHIGH;
-	uint8 u8ExpectedResult = (uint8)STD_nLOW;
-
-	GPIO_vInit();
-
-	u8ActualResult = (uint8)((*GPIO_s_pu32PwrDwnClr2Reg & (STD_nHIGH << GPIO_s_nPS16_BIT)) >> GPIO_s_nPS16_BIT);
-
-	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
-}
-
-/**
- * Test to check that function set the RESET bit of the global control register
- * (GIOGCR0).
- */
-TEST(GPIO_InitFunction, Test_3)
-{
-	uint8 u8ActualResult = (uint8)STD_nLOW;
-	uint8 u8ExpectedResult = (uint8)STD_nHIGH;
-
-	GPIO_vInit();
-
-	u8ActualResult = (uint8)((GPIO_s_pstControlStatusBaseAddress->GIOGCR0 & (STD_nHIGH << GPIO_s_nRESET_BIT)) >> GPIO_s_nRESET_BIT);
-
-	BYTES_EQUAL(u8ExpectedResult, u8ActualResult);
+	FAIL("TEST FAIL");
 }
 
 /* EOF */

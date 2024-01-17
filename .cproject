@@ -375,6 +375,8 @@
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/Example"/>
 		</configuration>
+		<configuration configurationName="UnitTestsMacOS"/>
+		<configuration configurationName="UnitTestsLinuxOS"/>
 		<configuration configurationName="UT">
 			<resource resourceType="PROJECT" workspacePath="/ComponentTesting"/>
 		</configuration>
