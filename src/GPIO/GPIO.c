@@ -35,10 +35,5 @@
 /* private__functions */
 
 /* public_functions */
-void GPIO_vInit(void)
-{
-
-
-}
 
 /* EOF */

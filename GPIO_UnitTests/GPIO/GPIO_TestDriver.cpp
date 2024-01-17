@@ -20,7 +20,6 @@
 
 /* system headers */
 #include "CppUTest/TestHarness.h"
-#include "STD_VALUES_def.h"
 extern "C"
 {
 /* System headers written in C */
@@ -37,7 +36,7 @@ extern "C"
 /******************** Start of Code Under Test ********************/
 extern "C"
 {
-#include "../../src/GPIO/GPIO.c"
+#include "GPIO.c"
 }
 /******************** End of Code Under Test ********************/
 
