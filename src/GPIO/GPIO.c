@@ -73,6 +73,7 @@ static GPIO_s_tstRegisters* GPIO_s_pstPort = (GPIO_s_tstRegisters*)NULL;
 /* private__functions */
 
 /* public_functions */
+<<<<<<< HEAD
 void GPIO_vInit(void)
 {
 	uint8 u8PortIndex;
@@ -94,5 +95,7 @@ void GPIO_vInit(void)
 		GPIO_s_pstPort = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8PortIndex];
 	}
 }
+=======
+>>>>>>> f728814950be2938a4228d9f0e9acc7000568731
 
 /* EOF */

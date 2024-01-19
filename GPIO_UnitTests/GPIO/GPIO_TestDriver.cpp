@@ -20,7 +20,6 @@
 
 /* system headers */
 #include "CppUTest/TestHarness.h"
-#include "STD_VALUES_def.h"
 extern "C"
 {
 /* System headers written in C */
