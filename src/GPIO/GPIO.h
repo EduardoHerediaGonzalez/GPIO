@@ -4,7 +4,8 @@
  * @file    GPIO.h
  * @note
  *        ______________      
- *        Eduardo Heredia Gonzalez
+ *        Eduardo
+ *        Heredia Gonzalez
  *        Diseñador           
  *
  * @brief   GPIO 
@@ -25,12 +26,109 @@
 /* exported variables */
 
 /* exported functions */
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_vInit(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_u8SetPinState(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_u8GetPinState(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_pstGetPinConfig(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_u8SetPortState(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_u8GetPortState(void);
+
+/**
+ * @Fn -
+ *
+ * @Brief -
+ *
+ * @Param[in] -
+ * @Param[out] -
+ *
+ * @Return -
+ *
+ * @Note -
+ *
+ */
 void GPIO_pstGetPortConfig(void);
 
 #endif /* GPIO_H_ */

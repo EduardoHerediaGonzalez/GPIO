@@ -1,24 +1,24 @@
 /**
- * Copyright © 2024
+ * Copyright © 2024 
  *
- * @file    VMEMORY_cfg.h
+ * @file    ASSERT_cfg.h
  * @note
  *        ______________      
  *        Eduardo
  *        Heredia Gonzalez
  *        Diseñador           
  *
- * @brief   VMEMORY_cfg 
+ * @brief   ASSERT_cfg 
  * @version No oficial
  *     
  */
 
-#ifndef VMEMORY_cfg_H_
-#define VMEMORY_cfg_H_
+#ifndef ASSERT_cfg_H_
+#define ASSERT_cfg_H_
 
 /* system headers */
 
 /*****************************************************************************/
 /* exported configuration macros */
 
-#endif /* VMEMORY_cfg_H_ */
+#endif /* ASSERT_cfg_H_ */

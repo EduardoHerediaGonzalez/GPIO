@@ -1,24 +1,31 @@
 /**
- * Copyright © 2024
+ * Copyright © 2024 
  *
- * @file    VMEMORY_cfg.h
+ * @file    ASSERT.h
  * @note
  *        ______________      
  *        Eduardo
  *        Heredia Gonzalez
  *        Diseñador           
  *
- * @brief   VMEMORY_cfg 
+ * @brief   ASSERT 
  * @version No oficial
  *     
  */
 
-#ifndef VMEMORY_cfg_H_
-#define VMEMORY_cfg_H_
+#ifndef ASSERT_H_
+#define ASSERT_H_
 
 /* system headers */
 
-/*****************************************************************************/
-/* exported configuration macros */
+/* own headers */
 
-#endif /* VMEMORY_cfg_H_ */
+/*****************************************************************************/
+/* helper macros */
+
+/* exported variables */
+
+/* exported functions */
+void ASSERT(uint8 u8Condition, sint8 s8Error);
+
+#endif /* ASSERT_H_ */

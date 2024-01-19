@@ -4,7 +4,8 @@
  * @file    GPIO_def.h
  * @note
  *        ______________      
- *        Eduardo Heredia Gonzalez
+ *        Eduardo
+ *        Heredia Gonzalez
  *        Diseñador           
  *
  * @brief   GPIO_def 
@@ -70,7 +71,37 @@ typedef enum
 	GPIO_enAF_OD_PU,
 	GPIO_enAF_OD_PD,
 	GIPO_enAnalog,
-	GPIO_enTotalOfModes
-}GPIO_tenModes;
+	GPIO_enTotalOfPinModes
+}GPIO_tenPinModes;
+
+typedef enum
+{
+	GPIO_enLowSpeed = 0,
+	GPIO_enMediumSpeed,
+	GPIO_enHighSpeed,
+	GPIO_enVeryHighSpeed,
+	GPIO_enTotalOfPinSpeeds
+}GPIO_tenPinSpeeds;
+
+typedef enum
+{
+	GPIO_enAF0 = 0,
+	GPIO_enAF1,
+	GPIO_enAF2,
+	GPIO_enAF3,
+	GPIO_enAF4,
+	GPIO_enAF5,
+	GPIO_enAF6,
+	GPIO_enAF7,
+	GPIO_enAF8,
+	GPIO_enAF9,
+	GPIO_enAF10,
+	GPIO_enAF11,
+	GPIO_enAF12,
+	GPIO_enAF13,
+	GPIO_enAF14,
+	GPIO_enAF15,
+	GPIO_enTotalOfAlternateFunctions
+}GPIO_tenAlternateFunctions;
 
 #endif /* GPIO_def_H_ */
