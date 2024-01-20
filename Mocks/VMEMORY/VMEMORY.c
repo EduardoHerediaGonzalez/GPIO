@@ -25,6 +25,7 @@
 /*[EXPORTED]****************************************************************************/
 
 /* public_variables */
+uint32 VMEMORY_u32RCCEnaAHB1Reg = (uint32)0U;
 VMEMORY_tstGPIORegisters VMEMORY_astPort[VMEMORY_nTOTAL_OF_PORTS] = {{(uint32)0U}};
 
 /*[INTERNAL]****************************************************************************/

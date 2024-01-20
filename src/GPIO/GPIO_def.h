@@ -55,22 +55,22 @@ typedef enum
 
 typedef enum
 {
-	GPIO_enInFloating = 0,
-	GPIO_enInPU,
-	GPIO_enInPD,
-	GPIO_enOutPP,
-	GPIO_enOutPP_PU,
-	GPIO_enOutPP_PD,
-	GPIO_enOutOD,
-	GPIO_enOutOD_PU,
-	GPIO_enOutOD_PD,
-	GPIO_enAF_PP,
-	GPIO_enAF_PP_PU,
-	GPIO_enAF_PP_PD,
-	GPIO_enAF_OD,
-	GPIO_enAF_OD_PU,
-	GPIO_enAF_OD_PD,
-	GIPO_enAnalog,
+	GPIO_enIn_Floating = 0,	/* Input floating */
+	GPIO_enIn_PU,			/* Input with pull-up */
+	GPIO_enIn_PD,			/* Input with pull-down */
+	GPIO_enOut_PP,			/* Output push-pull without pull-up/down */
+	GPIO_enOut_PP_PU,		/* Output push-pull with pull-up */
+	GPIO_enOut_PP_PD,		/* Output push-pull with pull-down */
+	GPIO_enOut_OD,			/* Output open-drain without pull-up/down */
+	GPIO_enOut_OD_PU,		/* Output open-drain without pull-up */
+	GPIO_enOut_OD_PD,		/* Output open-drain without pull-down */
+	GPIO_enAF_PP,			/* Alternate function push-pull without pull-up/down */
+	GPIO_enAF_PP_PU,		/* Alternate function push-pull with pull-up */
+	GPIO_enAF_PP_PD,		/* Alternate function push-pull with pull-down */
+	GPIO_enAF_OD,			/* Alternate function open-drain without pull-up/down */
+	GPIO_enAF_OD_PU,		/* Alternate function open-drain with pull-up */
+	GPIO_enAF_OD_PD,		/* Alternate function open-drain with pull-down */
+	GPIO_enAnalog,			/* Input/Output analog */
 	GPIO_enTotalOfPinModes
 }GPIO_tenPinModes;
 
@@ -101,7 +101,7 @@ typedef enum
 	GPIO_enAF13,
 	GPIO_enAF14,
 	GPIO_enAF15,
-	GPIO_enTotalOfAlternateFunctions
-}GPIO_tenAlternateFunctions;
+	GPIO_enTotalOfPinAlternateFunctions
+}GPIO_tenPinAlternateFunctions;
 
 #endif /* GPIO_def_H_ */

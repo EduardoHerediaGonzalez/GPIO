@@ -27,16 +27,16 @@
 
 /* exported functions */
 /**
- * @Fn -
+ * @Fn - GPIO_vInit
  *
- * @Brief -
+ * @Brief - Interface that enable the clocks and initialize all the ports of the
+ * 			microcontroller with the parameters defined on the macros
+ * 			GPIO_PORTx_CONFIG_TABLE_cfg, where x = {A,B,C,D,E,H}.
  *
- * @Param[in] -
- * @Param[out] -
+ * @Return - None
  *
- * @Return -
- *
- * @Note -
+ * @Note - This interface is necessary to call it after the reset of the
+ * 		   microcontroller.
  *
  */
 void GPIO_vInit(void);

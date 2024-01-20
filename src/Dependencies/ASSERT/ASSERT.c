@@ -38,10 +38,6 @@ static sint8 ASSERT_s_s8Error = (sint8)ASSERT_nNO_ERROR;
 static uint8 ASSERT_s_u8AssertFnCnt = (uint8)STD_nZERO;
 
 /* private__functions */
-static void ASSERT_vResetAssertFnCnt(void)
-{
-	ASSERT_s_u8AssertFnCnt = (uint8)STD_nZERO;
-}
 
 /* public_functions */
 void ASSERT(uint8 u8Condition, sint8 s8Error)

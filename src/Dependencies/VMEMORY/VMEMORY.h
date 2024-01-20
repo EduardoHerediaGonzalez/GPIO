@@ -23,6 +23,7 @@
 
 /*****************************************************************************/
 /* helper macros */
+extern uint32 VMEMORY_u32RCCEnaAHB1Reg;
 extern VMEMORY_tstGPIORegisters VMEMORY_astPort[VMEMORY_nTOTAL_OF_PORTS];
 
 /* exported functions */
