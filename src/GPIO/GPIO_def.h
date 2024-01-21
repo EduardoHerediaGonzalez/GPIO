@@ -17,6 +17,7 @@
 #define GPIO_def_H_
 
 /* system headers */
+#include "PLATFORM_TYPES_def.h"
 
 /* exported macros */
 
@@ -103,5 +104,18 @@ typedef enum
 	GPIO_enAF15,
 	GPIO_enTotalOfPinAlternateFunctions
 }GPIO_tenPinAlternateFunctions;
+
+typedef struct
+{
+	uint8 u8Number;
+	uint8 u8Mode;
+	uint8 u8Speed;
+	uint8 u8AlternateFunction;
+}GPIO_tstPinConfig;
+
+typedef struct
+{
+	GPIO_tstPinConfig astPinConfig[GPIO_enTotalOfPins];
+}GPIO_tstPortConfig;
 
 #endif /* GPIO_def_H_ */

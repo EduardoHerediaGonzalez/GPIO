@@ -65,19 +65,6 @@
 /* internal__types */
 typedef struct
 {
-	uint8 u8Number;
-	uint8 u8Mode;
-	uint8 u8Speed;
-	uint8 u8AlternateFunction;
-}GPIO_s_tstPinConfig;
-
-typedef struct
-{
-	GPIO_s_tstPinConfig astPin[GPIO_enTotalOfPins];
-}GPIO_s_tstPortConfig;
-
-typedef struct
-{
 	uint32 MODER;	/* Mode reg */
 	uint32 OTYPER;	/* Output type reg */
 	uint32 OSPEEDR;	/* Output speed reg */
@@ -91,97 +78,97 @@ typedef struct
 }volatile GPIO_s_tstRegisters;
 
 /* private__variables */
-static GPIO_s_tstPortConfig GPIO_s_astPort[GPIO_enTotalOfPorts] = GPIO_PORTS_CONFIG_TABLE_cfg;
+static GPIO_tstPortConfig GPIO_s_astPortConfig[GPIO_enTotalOfPorts] = GPIO_PORTS_CONFIG_TABLE_cfg;
 static void* GPIO_s_apvPortAddress[GPIO_enTotalOfPorts] = GPIO_PORTS_ADDRESSES_TABLE_cfg;
 static GPIO_s_tstRegisters* GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)NULL;
 
 /* private__functions */
 static void GPIO_s_vSetInputPull(uint8 u8PortIndex, uint8 u8PinIndex)
 {
-	if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enIn_PU)
+	if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enIn_PU)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
-	else if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enIn_PD)
+	else if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enIn_PD)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 	else
 	{
-		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 }
 
 static void GPIO_s_vSetOutputPull(uint8 u8PortIndex, uint8 u8PinIndex)
 {
-	if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enOut_PP_PU
-	   || GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enOut_OD_PU)
+	if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enOut_PP_PU
+	   || GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enOut_OD_PU)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
-	else if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enOut_PP_PD
-			|| GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enOut_OD_PD)
+	else if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enOut_PP_PD
+			|| GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enOut_OD_PD)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 	else
 	{
-		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 }
 
 static void GPIO_s_vSetAlternateFunctionPull(uint8 u8PortIndex, uint8 u8PinIndex)
 {
-	if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enAF_PP_PU
-	   || GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enAF_OD_PU)
+	if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enAF_PP_PU
+	   || GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enAF_OD_PU)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_UP_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
-	else if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enAF_PP_PD
-			|| GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode == (uint8)GPIO_enAF_OD_PD)
+	else if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enAF_PP_PD
+			|| GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode == (uint8)GPIO_enAF_OD_PD)
 	{
-		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR |= ((uint32)GPIO_s_nPULL_DOWN_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 	else
 	{
-		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 }
 
 static void GPIO_s_vSetSpeed(uint8 u8PortIndex, uint8 u8PinIndex)
 {
-	if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Speed == (uint8)GPIO_enLowSpeed)
+	if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Speed == (uint8)GPIO_enLowSpeed)
 	{
-		GPIO_s_pstPortReg->OSPEEDR &= ~(uint32)((uint32)GPIO_s_nLOW_SPEED_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->OSPEEDR &= ~(uint32)((uint32)GPIO_s_nLOW_SPEED_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 	else
 	{
-		GPIO_s_pstPortReg->OSPEEDR |= ((uint32)GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Speed << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+		GPIO_s_pstPortReg->OSPEEDR |= ((uint32)GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Speed << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 	}
 }
 
 static void GPIO_s_vSetAlternateFunction(uint8 u8PortIndex, uint8 u8PinIndex)
 {
-	if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number <= (uint8)GPIO_enPin7)
+	if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number <= (uint8)GPIO_enPin7)
 	{
-		if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8AlternateFunction == (uint8)GPIO_enAF0)
+		if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction == (uint8)GPIO_enAF0)
 		{
-			GPIO_s_pstPortReg->AFRL &= ~(uint32)((uint32)GPIO_s_nALTERNATE_FUNCTION0_VALUE << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+			GPIO_s_pstPortReg->AFRL &= ~(uint32)((uint32)GPIO_s_nALTERNATE_FUNCTION0_VALUE << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 		}
 		else
 		{
-			GPIO_s_pstPortReg->AFRL |= ((uint32)GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8AlternateFunction << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+			GPIO_s_pstPortReg->AFRL |= ((uint32)GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 		}
 	}
 	else
 	{
-		if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8AlternateFunction == (uint8)GPIO_enAF0)
+		if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction == (uint8)GPIO_enAF0)
 		{
-			GPIO_s_pstPortReg->AFRH &= ~(uint32)((uint32)GPIO_s_nALTERNATE_FUNCTION0_VALUE << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+			GPIO_s_pstPortReg->AFRH &= ~(uint32)((uint32)GPIO_s_nALTERNATE_FUNCTION0_VALUE << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 		}
 		else
 		{
-			GPIO_s_pstPortReg->AFRH |= ((uint32)GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8AlternateFunction << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+			GPIO_s_pstPortReg->AFRH |= ((uint32)GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction << (GPIO_s_n4BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 		}
 	}
 }
@@ -202,51 +189,51 @@ void GPIO_vInit(void)
 
 		for(u8PinIndex = (uint8)STD_nZERO; u8PinIndex < (uint8)GPIO_enTotalOfPins; u8PinIndex++)
 		{
-			ASSERT((GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode < (uint8)GPIO_enTotalOfPinModes), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Speed < (uint8)GPIO_enTotalOfPinSpeeds), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8AlternateFunction < (uint8)GPIO_enTotalOfPinAlternateFunctions), (sint8)ASSERT_nINVALID_CONFIG);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_CONFIG);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode < (uint8)GPIO_enTotalOfPinModes), (sint8)ASSERT_nINVALID_CONFIG);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Speed < (uint8)GPIO_enTotalOfPinSpeeds), (sint8)ASSERT_nINVALID_CONFIG);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction < (uint8)GPIO_enTotalOfPinAlternateFunctions), (sint8)ASSERT_nINVALID_CONFIG);
 
 			GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8PortIndex];
 
-			if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode <= (uint8)GPIO_enIn_PD)
+			if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode <= (uint8)GPIO_enIn_PD)
 			{
-				GPIO_s_pstPortReg->MODER &= ~(uint32)((uint32)GPIO_s_nINPUT_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+				GPIO_s_pstPortReg->MODER &= ~(uint32)((uint32)GPIO_s_nINPUT_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 
 				GPIO_s_vSetInputPull(u8PortIndex, u8PinIndex);
 			}
-			else if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode <= (uint8)GPIO_enOut_OD_PD)
+			else if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode <= (uint8)GPIO_enOut_OD_PD)
 			{
-				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nOUTPUT_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nOUTPUT_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 
-				if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode <= (uint8)GPIO_enOut_PP_PD)
+				if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode <= (uint8)GPIO_enOut_PP_PD)
 				{
-					GPIO_s_pstPortReg->OTYPER &= ~(uint32)((uint32)GPIO_s_nPUSH_PULL_VALUE << GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number);
+					GPIO_s_pstPortReg->OTYPER &= ~(uint32)((uint32)GPIO_s_nPUSH_PULL_VALUE << GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number);
 
 					GPIO_s_vSetOutputPull(u8PortIndex, u8PinIndex);
 				}
 				else
 				{
-					GPIO_s_pstPortReg->OTYPER |= ((uint32)GPIO_s_nOPEN_DRAIN_VALUE << GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number);
+					GPIO_s_pstPortReg->OTYPER |= ((uint32)GPIO_s_nOPEN_DRAIN_VALUE << GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number);
 
 					GPIO_s_vSetOutputPull(u8PortIndex, u8PinIndex);
 				}
 
 				GPIO_s_vSetSpeed(u8PortIndex, u8PinIndex);
 			}
-			else if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode <= (uint8)GPIO_enAF_OD_PD)
+			else if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode <= (uint8)GPIO_enAF_OD_PD)
 			{
-				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nAF_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nAF_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 
-				if(GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Mode <= (uint8)GPIO_enAF_PP_PD)
+				if(GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode <= (uint8)GPIO_enAF_PP_PD)
 				{
-					GPIO_s_pstPortReg->OTYPER &= ~(uint32)((uint32)GPIO_s_nPUSH_PULL_VALUE << GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number);
+					GPIO_s_pstPortReg->OTYPER &= ~(uint32)((uint32)GPIO_s_nPUSH_PULL_VALUE << GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number);
 
 					GPIO_s_vSetAlternateFunctionPull(u8PortIndex, u8PinIndex);
 				}
 				else
 				{
-					GPIO_s_pstPortReg->OTYPER |= ((uint32)GPIO_s_nOPEN_DRAIN_VALUE << GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number);
+					GPIO_s_pstPortReg->OTYPER |= ((uint32)GPIO_s_nOPEN_DRAIN_VALUE << GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number);
 
 					GPIO_s_vSetAlternateFunctionPull(u8PortIndex, u8PinIndex);
 				}
@@ -256,8 +243,8 @@ void GPIO_vInit(void)
 			}
 			else
 			{
-				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nANALOG_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
-				GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPort[u8PortIndex].astPin[u8PinIndex].u8Number));
+				GPIO_s_pstPortReg->MODER |= ((uint32)GPIO_s_nANALOG_MODE_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
+				GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 			}
 		}
 
@@ -267,6 +254,85 @@ void GPIO_vInit(void)
 		GPIO_s_pstPortReg->LCKR |= ((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
 		GPIO_s_pstPortReg->LCKR &= ~(uint32)((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
 		GPIO_s_pstPortReg->LCKR |= ((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
+	}
+}
+
+sint8 GPIO_s8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State)
+{
+	uint8 u8PinState = (uint8)STD_nUNDEFINED;
+	sint8 s8ReturnedValue = (sint8)0U;
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8State <= (uint8)STD_nHIGH), (sint8)ASSERT_nINVALID_ARGUMENT);
+
+	u8PinState = GPIO_u8GetPinState(u8Port, u8Pin);
+
+	if(u8PinState != u8State)
+	{
+
+	}
+	else
+	{
+		/* Nothing to do */
+	}
+
+	return s8ReturnedValue;
+}
+
+uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin)
+{
+	uint8 u8PinState = (uint8)STD_nUNDEFINED;
+	GPIO_tstPinConfig stPinConfig = {0U};
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
+
+	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
+	GPIO_vGetPinConfig(u8Port, u8Pin, &stPinConfig);
+
+	if(stPinConfig.u8Mode <= (uint8)GPIO_enIn_PD)
+	{
+		u8PinState = (uint8)0U;
+	}
+	else if(stPinConfig.u8Mode <= (uint8)GPIO_enOut_OD_PD)
+	{
+		u8PinState = (uint8)0U;
+	}
+	else if(stPinConfig.u8Mode <= (uint8)GPIO_enAF_OD_PD)
+	{
+		u8PinState = (uint8)0U;
+	}
+	else
+	{
+		u8PinState = (uint8)0U;
+	}
+
+	return u8PinState;
+}
+
+void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig)
+{
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(pstPinConfig != (GPIO_tstPinConfig*)NULL), (sint8)ASSERT_nNULL_POINTER);
+
+	pstPinConfig->u8Number = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8Number;
+	pstPinConfig->u8Mode = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8Mode;
+	pstPinConfig->u8Speed = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8Speed;
+	pstPinConfig->u8AlternateFunction = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8AlternateFunction;
+}
+
+void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig)
+{
+	uint8 u8PinIndex;
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(pstPortConfig != (GPIO_tstPortConfig*)NULL), (sint8)ASSERT_nNULL_POINTER);
+
+	for(u8PinIndex = (uint8)STD_nZERO; u8PinIndex < (uint8)GPIO_enTotalOfPins; u8PinIndex++)
+	{
+		pstPortConfig->astPinConfig[u8PinIndex] = GPIO_s_astPortConfig[u8Port].astPinConfig[u8PinIndex];
 	}
 }
 

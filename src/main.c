@@ -17,6 +17,7 @@
 /* used headers */
 
 /* own headers */
+#include "GPIO_def.h"
 #include "GPIO.h"
 
 /*[EXPORTED]****************************************************************************/
@@ -37,7 +38,6 @@
 int main(void)
 {
 	printf("Hello world!!!");
-	GPIO_vInit();
 
 	return 0;
 }

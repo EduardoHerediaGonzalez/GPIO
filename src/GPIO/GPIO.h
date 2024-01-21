@@ -17,8 +17,10 @@
 #define GPIO_H_
 
 /* system headers */
+#include "PLATFORM_TYPES_def.h"
 
 /* own headers */
+#include "GPIO_def.h"
 
 /*****************************************************************************/
 /* helper macros */
@@ -42,49 +44,56 @@
 void GPIO_vInit(void);
 
 /**
- * @Fn -
+ * @Fn - GPIO_u8SetPinState
  *
- * @Brief -
+ * @Brief - Interface that set the state of "u8Pin" of the port "u8Port" of the
+ * 			microcontroller with the state "u8State".
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
+ * @Param[in] - u8State = {STD_nLOW, STD_nHIGH}.
  *
  * @Return -
  *
- * @Note -
+ * @Note - None
  *
  */
-void GPIO_u8SetPinState(void);
+sint8 GPIO_s8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
 
 /**
- * @Fn -
+ * @Fn - GPIO_u8GetPinState
  *
- * @Brief -
+ * @Brief - Interface that get the state of the "u8Pin" of the port "u8Port" of
+ * 			the microcontroller.
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  *
  * @Return -
  *
- * @Note -
+ * @Note - None
  *
  */
-void GPIO_u8GetPinState(void);
+uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
 
 /**
- * @Fn -
+ * @Fn - GPIO_vGetPinConfig
  *
- * @Brief -
+ * @Brief - This interface get the configuration of the "u8Pin" of the "u8Port"
+ * 			of the microcontroller.
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
+ * @Param[in/out] - pstPinConfig
  *
- * @Return -
  *
- * @Note -
+ * @Return - Return the pin configuration throw the pointer parameter
+ * 			 "pstPinConfig".
+ *
+ * @Note - None
  *
  */
-void GPIO_pstGetPinConfig(void);
+void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig);
 
 /**
  * @Fn -
@@ -117,18 +126,18 @@ void GPIO_u8SetPortState(void);
 void GPIO_u8GetPortState(void);
 
 /**
- * @Fn -
+ * @Fn - GPIO_vGetPortConfig
  *
  * @Brief -
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port
+ * @Param[in/out] - pstPortConfig
  *
- * @Return -
+ * @Return - None
  *
- * @Note -
+ * @Note - None
  *
  */
-void GPIO_pstGetPortConfig(void);
+void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig);
 
 #endif /* GPIO_H_ */
