@@ -49,6 +49,7 @@
 #define GPIO_s_nLOW_SPEED_VALUE				(3U)
 #define GPIO_s_nALTERNATE_FUNCTION0_VALUE	(15U)
 #define GPIO_s_nLOCK_BIT_SHIFT				(16U)
+#define GPIO_s_nRESET_BIT_SHIFT				(16U)
 #define GPIO_s_nLOCK_ALL_PINS_VALUE			(0x0000FFFFU)
 /* Macros to manipulate the register of RCC module that enable the clocks of all the ports of the GPIO module.
  *  @TODO #Eduardo Heredia Gonzalez# 01/20/2024 - Remove all this macros when the RCC component is implemented. */
@@ -257,27 +258,47 @@ void GPIO_vInit(void)
 	}
 }
 
-sint8 GPIO_s8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State)
+uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State)
 {
-	uint8 u8PinState = (uint8)STD_nUNDEFINED;
-	sint8 s8ReturnedValue = (sint8)0U;
+	uint8 u8PinState = (uint8)u8State;
+	uint8 u8ReturnedValue = (uint8)STD_nUNDEFINED;
+	GPIO_tstPinConfig stPinConfig = {0U};
 
 	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
 	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
 	ASSERT((uint8)(u8State <= (uint8)STD_nHIGH), (sint8)ASSERT_nINVALID_ARGUMENT);
 
-	u8PinState = GPIO_u8GetPinState(u8Port, u8Pin);
+	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
+	GPIO_vGetPinConfig(u8Port, u8Pin, &stPinConfig);
 
-	if(u8PinState != u8State)
+	if((stPinConfig.u8Mode >= (uint8)GPIO_enOut_PP) && (stPinConfig.u8Mode <= (uint8)GPIO_enOut_OD_PD))
 	{
+		u8PinState = GPIO_u8GetPinState(u8Port, u8Pin);
 
+		if(u8PinState != u8State)
+		{
+			if(u8State == (uint8)STD_nLOW)
+			{
+				GPIO_s_pstPortReg->BSRR |= ((uint32)(STD_nHIGH << (u8Pin + (uint8)GPIO_s_nRESET_BIT_SHIFT)));
+			}
+			else
+			{
+				GPIO_s_pstPortReg->BSRR |= ((uint32)(STD_nHIGH << u8Pin));
+			}
+		}
+		else
+		{
+			/* Nothing to do */
+		}
+
+		u8ReturnedValue = (uint8)STD_nDEFINED;
 	}
 	else
 	{
 		/* Nothing to do */
 	}
 
-	return s8ReturnedValue;
+	return u8ReturnedValue;
 }
 
 uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin)
@@ -293,19 +314,19 @@ uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin)
 
 	if(stPinConfig.u8Mode <= (uint8)GPIO_enIn_PD)
 	{
-		u8PinState = (uint8)0U;
+		u8PinState = (uint8)((GPIO_s_pstPortReg->IDR & ((uint32)STD_nONE << u8Pin)) >> u8Pin);
 	}
 	else if(stPinConfig.u8Mode <= (uint8)GPIO_enOut_OD_PD)
 	{
-		u8PinState = (uint8)0U;
+		u8PinState = (uint8)((GPIO_s_pstPortReg->ODR & ((uint32)STD_nONE << u8Pin)) >> u8Pin);
 	}
 	else if(stPinConfig.u8Mode <= (uint8)GPIO_enAF_OD_PD)
 	{
-		u8PinState = (uint8)0U;
+		/* TBD */
 	}
 	else
 	{
-		u8PinState = (uint8)0U;
+		/* TBD */
 	}
 
 	return u8PinState;
@@ -321,6 +342,16 @@ void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConf
 	pstPinConfig->u8Mode = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8Mode;
 	pstPinConfig->u8Speed = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8Speed;
 	pstPinConfig->u8AlternateFunction = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8AlternateFunction;
+}
+
+uint8 GPIO_u8SetPortState(uint8 u8Port, uint8 u8State)
+{
+	return 0;
+}
+
+uint16 GPIO_u16GetPortState(uint8 u8Port)
+{
+	return 0;
 }
 
 void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig)

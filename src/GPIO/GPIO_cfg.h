@@ -82,7 +82,7 @@
 	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
-	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
+	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enOut_OD, 	(uint8)0U, 	(uint8)0U}	\
 	\
 }
 

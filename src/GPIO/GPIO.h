@@ -53,12 +53,12 @@ void GPIO_vInit(void);
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  * @Param[in] - u8State = {STD_nLOW, STD_nHIGH}.
  *
- * @Return -
+ * @Return - {STD_nUNDEFINED, STD_nDEFINED}.
  *
  * @Note - None
  *
  */
-sint8 GPIO_s8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
+uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
 
 /**
  * @Fn - GPIO_u8GetPinState
@@ -69,7 +69,7 @@ sint8 GPIO_s8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
  * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  *
- * @Return -
+ * @Return - {STD_nLOW, STD_nHIGH, STD_nUNDEFINED}.
  *
  * @Note - None
  *
@@ -96,44 +96,47 @@ uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
 void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig);
 
 /**
- * @Fn -
+ * @Fn - GPIO_u8SetPortState
  *
- * @Brief -
+ * @Brief - Interface that set the state of the port "u8Port" of the
+ * 			microcontroller with the state "u8State".
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8State = {STD_nLOW, STD_nHIGH}.
  *
- * @Return -
+ * @Return - {STD_nUNDEFINED, STD_nDEFINED}.
  *
- * @Note -
+ * @Note - None
  *
  */
-void GPIO_u8SetPortState(void);
+uint8 GPIO_u8SetPortState(uint8 u8Port, uint8 u8State);
 
 /**
- * @Fn -
+ * @Fn - GPIO_u16GetPortState
  *
- * @Brief -
+ * @Brief - Interface that get the state of the port "u8Port" of
+ * 			the microcontroller.
  *
- * @Param[in] -
- * @Param[out] -
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  *
- * @Return -
+ * @Return - {STD_nUNDEFINED}.
  *
- * @Note -
+ * @Note - None
  *
  */
-void GPIO_u8GetPortState(void);
+uint16 GPIO_u16GetPortState(uint8 u8Port);
 
 /**
  * @Fn - GPIO_vGetPortConfig
  *
- * @Brief -
+ * @Brief - This interface get the configuration of the "u8Port"
+ * 			of the microcontroller.
  *
- * @Param[in] - u8Port
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in/out] - pstPortConfig
  *
- * @Return - None
+ * @Return - Return the port configuration throw the pointer parameter
+ * 			 "pstPortConfig".
  *
  * @Note - None
  *
