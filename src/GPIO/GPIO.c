@@ -344,16 +344,6 @@ void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConf
 	pstPinConfig->u8AlternateFunction = GPIO_s_astPortConfig[u8Port].astPinConfig[u8Pin].u8AlternateFunction;
 }
 
-uint8 GPIO_u8SetPortState(uint8 u8Port, uint8 u8State)
-{
-	return 0;
-}
-
-uint16 GPIO_u16GetPortState(uint8 u8Port)
-{
-	return 0;
-}
-
 void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig)
 {
 	uint8 u8PinIndex;

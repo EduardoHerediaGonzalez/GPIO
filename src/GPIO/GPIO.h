@@ -32,7 +32,7 @@
  * @Fn - GPIO_vInit
  *
  * @Brief - Interface that enable the clocks and initialize all the ports of the
- * 			microcontroller with the parameters defined on the macros
+ * 			microcontroller with the parameters values defined on the macros
  * 			GPIO_PORTx_CONFIG_TABLE_cfg, where x = {A,B,C,D,E,H}.
  *
  * @Return - None
@@ -94,37 +94,6 @@ uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
  *
  */
 void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig);
-
-/**
- * @Fn - GPIO_u8SetPortState
- *
- * @Brief - Interface that set the state of the port "u8Port" of the
- * 			microcontroller with the state "u8State".
- *
- * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
- * @Param[in] - u8State = {STD_nLOW, STD_nHIGH}.
- *
- * @Return - {STD_nUNDEFINED, STD_nDEFINED}.
- *
- * @Note - None
- *
- */
-uint8 GPIO_u8SetPortState(uint8 u8Port, uint8 u8State);
-
-/**
- * @Fn - GPIO_u16GetPortState
- *
- * @Brief - Interface that get the state of the port "u8Port" of
- * 			the microcontroller.
- *
- * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
- *
- * @Return - {STD_nUNDEFINED}.
- *
- * @Note - None
- *
- */
-uint16 GPIO_u16GetPortState(uint8 u8Port);
 
 /**
  * @Fn - GPIO_vGetPortConfig
