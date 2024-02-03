@@ -4,7 +4,8 @@
  * @file    STM32F401xx_def.h
  * @note
  *        ______________      
- *        Eduardo Heredia Gonzalez
+ *        Eduardo
+ *        Heredia Gonzalez
  *        Diseñador           
  *
  * @brief   STM32F401xx_def 

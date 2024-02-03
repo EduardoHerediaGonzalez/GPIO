@@ -17,6 +17,7 @@
 #define ASSERT_H_
 
 /* system headers */
+#include "PLATFORM_TYPES_def.h"
 
 /* own headers */
 

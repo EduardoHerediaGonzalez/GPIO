@@ -19,10 +19,10 @@
 /* system headers */
 
 /* exported macros */
-#define ASSERT_nNO_ERROR		(0)
-#define ASSERT_nNULL_POINTER	(-1)
-#define ASSERT_nINVALID_CONFIG	(-2)
-#define ASSERT_nINVALID_VALUE	(-3)
+#define ASSERT_nNO_ERROR			(0)
+#define ASSERT_nNULL_POINTER		(-1)
+#define ASSERT_nINVALID_CONFIG		(-2)
+#define ASSERT_nINVALID_VALUE		(-3)
 #define ASSERT_nVALUE_OUT_OF_RANGE	(-4)
 #define	ASSERT_nINVALID_ARGUMENT	(-5)
 
