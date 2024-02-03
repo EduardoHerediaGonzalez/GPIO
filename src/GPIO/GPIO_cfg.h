@@ -64,6 +64,25 @@
  * @Note -
  *
  */
+#ifdef _DEBUG_
+#define GPIO_PORTA_CONFIG_TABLE_cfg	\
+{	\
+	/* u8Number, 			u8Mode, 					u8Speed,	u8AlternateFunction */	\
+	{(uint8)GPIO_enPin0, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin1, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin2, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin3, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin4, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin5, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin6, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin7, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin8, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin9, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin10, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin11, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+}
+#else
 #define GPIO_PORTA_CONFIG_TABLE_cfg	\
 {	\
 	/* u8Number, 			u8Mode, 					u8Speed,	u8AlternateFunction */	\
@@ -82,9 +101,9 @@
 	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
-	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enOut_OD, 	(uint8)0U, 	(uint8)0U}	\
-	\
+	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
 }
+#endif
 
 /**
  * @Brief -
@@ -95,6 +114,26 @@
  * @Note -
  *
  */
+#ifdef _DEBUG_
+#define GPIO_PORTB_CONFIG_TABLE_cfg	\
+{	\
+	/* u8Number, 			u8Mode, 					u8Speed,	u8AlternateFunction */	\
+	{(uint8)GPIO_enPin0, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin1, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin2, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin5, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin6, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin7, 	(uint8)GPIO_enIn_Floating,	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin8, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin9, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin10, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin11, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
+}
+#else
 #define GPIO_PORTB_CONFIG_TABLE_cfg	\
 {	\
 	/* u8Number, 			u8Mode, 					u8Speed,	u8AlternateFunction */	\
@@ -114,8 +153,8 @@
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
-	\
 }
+#endif
 /**
  * @Brief -
  *
@@ -144,7 +183,6 @@
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
-	\
 }
 
 /**
@@ -175,7 +213,6 @@
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
-	\
 }
 
 /**
@@ -206,7 +243,6 @@
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
-	\
 }
 
 /**
@@ -228,16 +264,15 @@
 	{(uint8)GPIO_enPin4, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin5, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin6, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
-	{(uint8)GPIO_enPin7, 	(uint8)GPIO_enAnalog, 	(uint8)GPIO_enMediumSpeed, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin7, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin8, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin9, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin10, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin11, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
-	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enAnalog, 	(uint8)GPIO_enHighSpeed, 	(uint8)0U},	\
+	{(uint8)GPIO_enPin12, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin13, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
 	{(uint8)GPIO_enPin14, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U},	\
-	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enOut_OD_PD, 	(uint8)GPIO_enVeryHighSpeed, 	(uint8)0U}	\
-	\
+	{(uint8)GPIO_enPin15, 	(uint8)GPIO_enIn_Floating, 	(uint8)0U, 	(uint8)0U}	\
 }
 
 /**
