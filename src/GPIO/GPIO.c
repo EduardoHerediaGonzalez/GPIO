@@ -190,10 +190,10 @@ void GPIO_vInit(void)
 
 		for(u8PinIndex = (uint8)STD_nZERO; u8PinIndex < (uint8)GPIO_enTotalOfPins; u8PinIndex++)
 		{
-			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode < (uint8)GPIO_enTotalOfPinModes), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Speed < (uint8)GPIO_enTotalOfPinSpeeds), (sint8)ASSERT_nINVALID_CONFIG);
-			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction < (uint8)GPIO_enTotalOfPinAlternateFunctions), (sint8)ASSERT_nINVALID_CONFIG);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Mode < (uint8)GPIO_enTotalOfPinModes), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Speed < (uint8)GPIO_enTotalOfPinSpeeds), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+			ASSERT((GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8AlternateFunction < (uint8)GPIO_enTotalOfPinAlternateFunctions), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
 
 			GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8PortIndex];
 

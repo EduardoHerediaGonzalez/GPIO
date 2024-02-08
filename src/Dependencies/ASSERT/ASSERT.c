@@ -34,8 +34,10 @@
 /* internal__types */
 
 /* private__variables */
+#if defined _UNITTESTS_ || defined _SWDEVELOPMENT_
 static sint8 ASSERT_s_s8Error = (sint8)ASSERT_nNO_ERROR;
 static uint8 ASSERT_s_u8AssertFnCnt = (uint8)STD_nZERO;
+#endif
 
 /* private__functions */
 

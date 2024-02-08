@@ -116,7 +116,7 @@ IGNORE_TEST(GPIO_vInit, Test_1)
  */
 IGNORE_TEST(GPIO_vInit, Test_2)
 {
-	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG;
+	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG_VALUE;
 
 	GPIO_s_astPortConfig[GPIO_enPortC].astPinConfig[GPIO_enPin7].u8Number = (uint8)GPIO_enTotalOfPins;
 
@@ -131,7 +131,7 @@ IGNORE_TEST(GPIO_vInit, Test_2)
  */
 IGNORE_TEST(GPIO_vInit, Test_3)
 {
-	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG;
+	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG_VALUE;
 
 	GPIO_s_astPortConfig[GPIO_enPortC].astPinConfig[GPIO_enPin7].u8Mode = (uint8)GPIO_enTotalOfPinModes;
 
@@ -146,7 +146,7 @@ IGNORE_TEST(GPIO_vInit, Test_3)
  */
 IGNORE_TEST(GPIO_vInit, Test_4)
 {
-	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG;
+	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG_VALUE;
 
 	GPIO_s_astPortConfig[GPIO_enPortC].astPinConfig[GPIO_enPin7].u8Speed = (uint8)GPIO_enTotalOfPinSpeeds;
 
@@ -161,7 +161,7 @@ IGNORE_TEST(GPIO_vInit, Test_4)
  */
 IGNORE_TEST(GPIO_vInit, Test_5)
 {
-	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG;
+	sint8 s8ExpectedValue = (sint8)ASSERT_nINVALID_CONFIG_VALUE;
 
 	GPIO_s_astPortConfig[GPIO_enPortC].astPinConfig[GPIO_enPin7].u8AlternateFunction = (uint8)GPIO_enTotalOfPinAlternateFunctions;
 

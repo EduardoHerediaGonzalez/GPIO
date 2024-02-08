@@ -34,8 +34,10 @@
 /* internal__types */
 
 /* private__variables */
+#if defined _UNITTESTS_ || defined _SWDEVELOPMENT_
 static sint8 ASSERT_s_s8Error = (sint8)ASSERT_nNO_ERROR;
 static uint8 ASSERT_s_u8AssertFnCnt = (uint8)STD_nZERO;
+#endif
 
 /* private__functions */
 
@@ -44,6 +46,7 @@ void ASSERT(uint8 u8Condition, sint8 s8Error)
 {
 	if(u8Condition == (uint8)STD_nZERO)
 	{
+		#if defined _UNITTESTS_ || defined _SWDEVELOPMENT_
 		if(ASSERT_s_u8AssertFnCnt == (uint8)STD_nZERO)
 		{
 			ASSERT_s_s8Error = s8Error;
@@ -53,6 +56,9 @@ void ASSERT(uint8 u8Condition, sint8 s8Error)
 		{
 			ASSERT_s_s8Error = (sint8)ASSERT_nNO_ERROR;
 		}
+		#else
+		while(1);
+		#endif
 	}
 	else
 	{
