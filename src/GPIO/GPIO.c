@@ -19,6 +19,8 @@
 /* used headers */
 #include "ASSERT_def.h"
 #include "ASSERT.h"
+#include "RCC_def.h"
+#include "RCC.h"
 #ifdef _SWDEVELOPMENT_
 #include "VMEMORY.h"
 #endif
@@ -28,11 +30,11 @@
 #include "GPIO_def.h"
 #include "GPIO.h"
 
-/*[EXPORTED]****************************************************************************/
+/*[EXPORTED]******************************************************************/
 
 /* public_variables */
 
-/*[INTERNAL]****************************************************************************/
+/*[INTERNAL]******************************************************************/
 
 /* internal__pre-processor macros */
 #define GPIO_s_nOUTPUT_MODE_VALUE			(1U)
@@ -51,17 +53,7 @@
 #define GPIO_s_nLOCK_BIT					(16U)
 #define GPIO_s_nRESET_BIT_SHIFT				(16U)
 #define GPIO_s_nLCK_VALUE_MASK				(0xFFFFU)
-/* Macros to manipulate the register of RCC module that enable the clocks of all the ports of the GPIO module.
- *  @TODO #Eduardo Heredia Gonzalez# 01/20/2024 - Remove all this macros when the RCC component is implemented. */
-#if defined _UNITTESTS_ || defined _SWDEVELOPMENT_
-#define RCC_s_nAHB1_ENA_REG_ADDRESS			(&VMEMORY_u32RCCEnaAHB1Reg)
-#else
-#define RCC_s_nAHB1_ENA_REG_ADDRESS			(0x40023830U)
-#endif
-#define RCC_s_nENA_ALL_GPIO_PORTS_VALUE		(0x0000009FU)
-#define RCC_s_ENA_AHB1_CLKS	(	\
-		*((uint32*)RCC_s_nAHB1_ENA_REG_ADDRESS) |= (uint32)RCC_s_nENA_ALL_GPIO_PORTS_VALUE	\
-)
+#define GPIO_s_nTWO_VALUE					(2U)
 
 /* internal__types */
 typedef struct
@@ -174,19 +166,29 @@ static void GPIO_s_vSetAlternateFunction(uint8 u8PortIndex, uint8 u8PinIndex)
 	}
 }
 
+static void GPIO_s_vChangePinConfig(uint8 u8Port, GPIO_tstPinConfig *pstPinConfig)
+{
+	/* TBD */
+}
+
 /* public_functions */
 void GPIO_vInit(void)
 {
 	uint8 u8PortIndex;
 	uint8 u8PinIndex;
 
-	/* Macro to manipulate the register of RCC module that enable the clocks of all the ports of the GPIO module.
-	 *  @TODO #Eduardo Heredia Gonzalez# 01/20/2024 - Replace this macros when the RCC component is implemented with the correspond interface. */
-	RCC_s_ENA_AHB1_CLKS;
-
 	for(u8PortIndex = (uint8)STD_nZERO; u8PortIndex < (uint8)GPIO_enTotalOfPorts; u8PortIndex++)
 	{
 		ASSERT((uint8)(GPIO_s_apvPortAddress[u8PortIndex] != (void*)NULL), (sint8)ASSERT_nNULL_POINTER);
+
+		if(u8PortIndex == (uint8)GPIO_enPortH)
+		{
+			RCC_vAHB1EnaPeriphClk(u8PortIndex + (uint8)GPIO_s_nTWO_VALUE);
+		}
+		else
+		{
+			RCC_vAHB1EnaPeriphClk(u8PortIndex);
+		}
 
 		for(u8PinIndex = (uint8)STD_nZERO; u8PinIndex < (uint8)GPIO_enTotalOfPins; u8PinIndex++)
 		{
@@ -325,6 +327,38 @@ uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin)
 	return u8PinState;
 }
 
+uint8 GPIO_u8SetPinConfig(uint8 u8Port, GPIO_tstPinConfig *pstPinConfig)
+{
+	uint8 u8LockPinState = (uint8)STD_nUNLOCK;
+	uint8 u8ReturnedValue = (uint8)STD_nUNDEFINED;
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(pstPinConfig != (GPIO_tstPinConfig*)NULL), (sint8)ASSERT_nNULL_POINTER);
+	ASSERT((uint8)(pstPinConfig->u8Number >= (uint8)GPIO_enPin0), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8Number < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8Mode >= (uint8)GPIO_enIn_Floating), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8Mode < (uint8)GPIO_enTotalOfPinModes), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8Speed >= (uint8)GPIO_enLowSpeed), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8Speed < (uint8)GPIO_enTotalOfPinSpeeds), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8AlternateFunction >= (uint8)GPIO_enAF0), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+	ASSERT((uint8)(pstPinConfig->u8AlternateFunction < (uint8)GPIO_enTotalOfPinAlternateFunctions), (sint8)ASSERT_nINVALID_CONFIG_VALUE);
+
+	u8LockPinState = GPIO_u8GetLockPinState(u8Port, pstPinConfig->u8Number);
+
+	if(u8LockPinState == (uint8)STD_nUNLOCK)
+	{
+		GPIO_s_vChangePinConfig(u8Port, pstPinConfig);
+
+		u8ReturnedValue = (uint8)STD_nDEFINED;
+	}
+	else
+	{
+		/* Nothing to do */
+	}
+
+	return u8ReturnedValue;
+}
+
 void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig)
 {
 	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
@@ -355,10 +389,8 @@ uint8 GPIO_u8LockPinConfig(uint8 u8Port, uint8 u8Pin)
 	uint8 u8LockPinState = (uint8)STD_nUNLOCK;
 	uint32 u32LCKR = (uint32)STD_nZERO;
 
-	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts),
-		   (sint8)ASSERT_nINVALID_ARGUMENT);
-	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins),
-		   (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
 
 	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
 
@@ -380,10 +412,8 @@ uint8 GPIO_u8GetLockPinState(uint8 u8Port, uint8 u8Pin)
 {
 	uint8 u8LockPinState = (uint8)STD_nUNLOCK;
 
-	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts),
-		   (sint8)ASSERT_nINVALID_ARGUMENT);
-	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins),
-		   (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts), (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins), (sint8)ASSERT_nINVALID_ARGUMENT);
 
 	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
 

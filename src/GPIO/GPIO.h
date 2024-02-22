@@ -53,7 +53,7 @@ extern void GPIO_vInit(void);
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  * @Param[in] - u8State = {STD_nLOW, STD_nHIGH}.
  *
- * @Return - {STD_nUNDEFINED, STD_nDEFINED}.
+ * @Return = {STD_nUNDEFINED, STD_nDEFINED}.
  *
  * @Note - None
  *
@@ -69,12 +69,29 @@ extern uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
  * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  *
- * @Return - {STD_nLOW, STD_nHIGH, STD_nUNDEFINED}.
+ * @Return = {STD_nLOW, STD_nHIGH, STD_nUNDEFINED}.
  *
  * @Note - None
  *
  */
 extern uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
+
+/**
+ * @Fn - GPIO_vSetPinConfig
+ *
+ * @Brief - This interface set the configuration of the "u8Pin" of the "u8Port"
+ * 			of the microcontroller.
+ *
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in/out] - pstPinConfig
+ *
+ *
+ * @Return = {STD_nUNDEFINED, STD_nDEFINED}.
+ *
+ * @Note - None
+ *
+ */
+extern uint8 GPIO_u8SetPinConfig(uint8 u8Port, GPIO_tstPinConfig *pstPinConfig);
 
 /**
  * @Fn - GPIO_vGetPinConfig
@@ -87,14 +104,13 @@ extern uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
  * @Param[in/out] - pstPinConfig
  *
  *
- * @Return - Return the pin configuration throw the pointer parameter
+ * @Return = Return the pin configuration throw the pointer parameter
  * 			 "pstPinConfig".
  *
  * @Note - None
  *
  */
-extern void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, 
-                               GPIO_tstPinConfig *pstPinConfig);
+extern void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig);
 
 /**
  * @Fn - GPIO_vGetPortConfig
@@ -105,14 +121,13 @@ extern void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin,
  * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in/out] - pstPortConfig
  *
- * @Return - Return the port configuration throw the pointer parameter
+ * @Return = Return the port configuration throw the pointer parameter
  * 			 "pstPortConfig".
  *
  * @Note - None
  *
  */
-extern void GPIO_vGetPortConfig(uint8 u8Port, 
-                                GPIO_tstPortConfig *pstPortConfig);
+extern void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig);
 
 /**
  * @Fn - GPIO_u8LockPinConfig
@@ -123,7 +138,7 @@ extern void GPIO_vGetPortConfig(uint8 u8Port,
  * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  *
- * @Return - Return = {[STD_nUNLOCK, STD_nLOCK]}.
+ * @Return = {[STD_nUNLOCK, STD_nLOCK]}.
  *
  * @Note - None
  *
@@ -139,7 +154,7 @@ extern uint8 GPIO_u8LockPinConfig(uint8 u8Port, uint8 u8Pin);
  * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
  * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
  *
- * @Return - Return = {[STD_nUNLOCK, STD_nLOCK]}.
+ * @Return = {[STD_nUNLOCK, STD_nLOCK]}.
  *
  * @Note - None
  *
