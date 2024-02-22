@@ -248,13 +248,6 @@ void GPIO_vInit(void)
 				GPIO_s_pstPortReg->PUPDR &= ~(uint32)((uint32)GPIO_s_nNO_PULLS_VALUE << (GPIO_s_n2BITS_OFFSET * GPIO_s_astPortConfig[u8PortIndex].astPinConfig[u8PinIndex].u8Number));
 			}
 		}
-
-		GPIO_s_pstPortReg->LCKR = (uint32)GPIO_s_nLOCK_ALL_PINS_VALUE;
-
-		/* Sequence to lock the configuration of all the pins of the port */
-		GPIO_s_pstPortReg->LCKR |= ((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
-		GPIO_s_pstPortReg->LCKR &= ~(uint32)((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
-		GPIO_s_pstPortReg->LCKR |= ((uint32)STD_nONE << GPIO_s_nLOCK_BIT_SHIFT);
 	}
 }
 
