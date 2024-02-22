@@ -48,9 +48,9 @@
 #define GPIO_s_nOPEN_DRAIN_VALUE			(1U)
 #define GPIO_s_nLOW_SPEED_VALUE				(3U)
 #define GPIO_s_nALTERNATE_FUNCTION0_VALUE	(15U)
-#define GPIO_s_nLOCK_BIT_SHIFT				(16U)
+#define GPIO_s_nLOCK_BIT					(16U)
 #define GPIO_s_nRESET_BIT_SHIFT				(16U)
-#define GPIO_s_nLOCK_ALL_PINS_VALUE			(0x0000FFFFU)
+#define GPIO_s_nLCK_VALUE_MASK				(0xFFFFU)
 /* Macros to manipulate the register of RCC module that enable the clocks of all the ports of the GPIO module.
  *  @TODO #Eduardo Heredia Gonzalez# 01/20/2024 - Remove all this macros when the RCC component is implemented. */
 #if defined _UNITTESTS_ || defined _SWDEVELOPMENT_
@@ -355,6 +355,48 @@ void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig)
 	{
 		pstPortConfig->astPinConfig[u8PinIndex] = GPIO_s_astPortConfig[u8Port].astPinConfig[u8PinIndex];
 	}
+}
+
+uint8 GPIO_u8LockPinConfig(uint8 u8Port, uint8 u8Pin)
+{
+	uint8 u8LockPinState = (uint8)STD_nUNLOCK;
+	uint32 u32LCKR = (uint32)STD_nZERO;
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts),
+		   (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins),
+		   (sint8)ASSERT_nINVALID_ARGUMENT);
+
+	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
+
+	u32LCKR = GPIO_s_pstPortReg->LCKR & (uint32)GPIO_s_nLCK_VALUE_MASK;
+	u32LCKR |= (1<<u8Pin);
+
+	GPIO_s_pstPortReg->LCKR = (1<<(uint32)GPIO_s_nLOCK_BIT) | u32LCKR;
+	GPIO_s_pstPortReg->LCKR = u32LCKR;
+	GPIO_s_pstPortReg->LCKR = (1<<(uint32)GPIO_s_nLOCK_BIT) | u32LCKR;
+
+	(void)GPIO_s_pstPortReg->LCKR;
+	u32LCKR = GPIO_s_pstPortReg->LCKR & (1<<GPIO_s_nLOCK_BIT);
+	u8LockPinState = (uint8)((u32LCKR)>>GPIO_s_nLOCK_BIT);
+
+	return u8LockPinState;
+}
+
+uint8 GPIO_u8GetLockPinState(uint8 u8Port, uint8 u8Pin)
+{
+	uint8 u8LockPinState = (uint8)STD_nUNLOCK;
+
+	ASSERT((uint8)(u8Port < (uint8)GPIO_enTotalOfPorts),
+		   (sint8)ASSERT_nINVALID_ARGUMENT);
+	ASSERT((uint8)(u8Pin < (uint8)GPIO_enTotalOfPins),
+		   (sint8)ASSERT_nINVALID_ARGUMENT);
+
+	GPIO_s_pstPortReg = (GPIO_s_tstRegisters*)GPIO_s_apvPortAddress[u8Port];
+
+	u8LockPinState = (uint8)((GPIO_s_pstPortReg->LCKR & (1<<u8Pin))>>u8Pin);
+
+	return u8LockPinState;
 }
 
 /* EOF */

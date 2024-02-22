@@ -65,10 +65,12 @@ typedef enum
 	GPIO_enOut_OD,			/* Output open-drain without pull-up/down */
 	GPIO_enOut_OD_PU,		/* Output open-drain without pull-up */
 	GPIO_enOut_OD_PD,		/* Output open-drain without pull-down */
-	GPIO_enAF_PP,			/* Alternate function push-pull without pull-up/down */
+	GPIO_enAF_PP,			/* Alternate function push-pull without 
+							   pull-up/down */
 	GPIO_enAF_PP_PU,		/* Alternate function push-pull with pull-up */
 	GPIO_enAF_PP_PD,		/* Alternate function push-pull with pull-down */
-	GPIO_enAF_OD,			/* Alternate function open-drain without pull-up/down */
+	GPIO_enAF_OD,			/* Alternate function open-drain without 
+						       pull-up/down */
 	GPIO_enAF_OD_PU,		/* Alternate function open-drain with pull-up */
 	GPIO_enAF_OD_PD,		/* Alternate function open-drain with pull-down */
 	GPIO_enAnalog,			/* Input/Output analog */

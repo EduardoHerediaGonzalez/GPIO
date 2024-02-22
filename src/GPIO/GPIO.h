@@ -41,7 +41,7 @@
  * 		   microcontroller.
  *
  */
-void GPIO_vInit(void);
+extern void GPIO_vInit(void);
 
 /**
  * @Fn - GPIO_u8SetPinState
@@ -58,7 +58,7 @@ void GPIO_vInit(void);
  * @Note - None
  *
  */
-uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
+extern uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
 
 /**
  * @Fn - GPIO_u8GetPinState
@@ -74,7 +74,7 @@ uint8 GPIO_u8SetPinState(uint8 u8Port, uint8 u8Pin, uint8 u8State);
  * @Note - None
  *
  */
-uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
+extern uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
 
 /**
  * @Fn - GPIO_vGetPinConfig
@@ -93,7 +93,8 @@ uint8 GPIO_u8GetPinState(uint8 u8Port, uint8 u8Pin);
  * @Note - None
  *
  */
-void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConfig);
+extern void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, 
+                               GPIO_tstPinConfig *pstPinConfig);
 
 /**
  * @Fn - GPIO_vGetPortConfig
@@ -110,6 +111,39 @@ void GPIO_vGetPinConfig(uint8 u8Port, uint8 u8Pin, GPIO_tstPinConfig *pstPinConf
  * @Note - None
  *
  */
-void GPIO_vGetPortConfig(uint8 u8Port, GPIO_tstPortConfig *pstPortConfig);
+extern void GPIO_vGetPortConfig(uint8 u8Port, 
+                                GPIO_tstPortConfig *pstPortConfig);
+
+/**
+ * @Fn - GPIO_u8LockPinConfig
+ *
+ * @Brief - This interface lock the configuration of the "u8Pin"
+ * 			of the "u8Port" of the microcontroller.
+ *
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
+ *
+ * @Return - Return = {[STD_nUNLOCK, STD_nLOCK]}.
+ *
+ * @Note - None
+ *
+ */
+extern uint8 GPIO_u8LockPinConfig(uint8 u8Port, uint8 u8Pin);
+
+/**
+ * @Fn - GPIO_u8GetLockPinState
+ *
+ * @Brief - This interface get the state of the lock pin configuration of the 
+ *          "u8Pin" of the "u8Port" of the microcontroller.
+ *
+ * @Param[in] - u8Port = {[GPIO_enPortA, GPIO_enTotalOfPorts)}.
+ * @Param[in] - u8Pin = {[GPIO_enPin0, GPIO_enTotalOfPins)}.
+ *
+ * @Return - Return = {[STD_nUNLOCK, STD_nLOCK]}.
+ *
+ * @Note - None
+ *
+ */
+extern uint8 GPIO_u8GetLockPinState(uint8 u8Port, uint8 u8Pin);
 
 #endif /* GPIO_H_ */
